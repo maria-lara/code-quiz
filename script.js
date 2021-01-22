@@ -13,8 +13,7 @@ let score = 0;
 let correctAnswer;
 
 
-// Start Button //
-
+// Start Button (and starting the timer) //
 $("#start").click(function() {
     $("#start").attr("style", "display: none");
     showQuestion(0);
@@ -83,71 +82,30 @@ const quizQuestions = [
 ];
 
 
+// Displaying each question //
 
+function displayQuestions(questionsAnswered){
+    let questionAsked = $("<h3>");
+    $("#questions").append(questionAsked);
+    $(questionAsked).text(quizQuestions[questionsAnswered].j);
 
-
-function createQuiz(questions, questionDisplay, scoreDislay, submitButton){
-    
-    //  Displaying each question //
-    function displayQuestions(questions,questionDisplay){
-        const output = [];
-        const answers;
-
-        for(var i = 0; i<questions.length; i++){
-            answers=[];
-            for(letter in questions[i].answers){
-                answers.push('<label>'
-                    + '<input type="radio" name="question'+i+'value="'+letter+'">'
-                    + letter + ':'
-                    +questions[i].answers[letter]
-                    + '</label>'
-                );
-
-            }
-
-        output.push(
-            'div class="question">' + quetsions[i].quetsions + '</div>'
-            + '<div class="answers">' + answers.join('') + '</div>'
-            );
-        }
-    
-        questionDisplay.innerHTML = output.join('')
+    for(var i = 0; i < quizQuestions[questionsAnswered].length ; i++){
+        let choiceButton = $("<button>");
+        $('#options').append(choiceButton);
+        $(choiceButton).text(quizQuestions[questionsAnswered].l[i]);
     }
-
-    // Displaying the score //
-    function displayScore(questions, questionDisplay, scoreDisplay){
-        const selectedAnswers = questionDisplay.querySelectorAll('.answers');
-
-        const currentScore = 0;
-        const applicantAnswers = '';
-
-        for(var i=0; i<questions.length; i++){
-            applicantAnswers = (scoreDislay[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-
-            if(applicantAnswers === questions[i].correctAnswer){
-                currentScore++;
-            }
-        
-        
-        scoreDislay.innerHTML = currentScore + ' / ' + questions.length;
-    }
-
-
-
-    // Display final results //
-    displayQuestions(questions, scoreDisplay);
-
-    submitButton.onclick = function(){
-        displayScore(questions, questionDisplay, scoreDisplay);
-    }
-
-    // Event listener to display results on click //
-
-    submitButton.addEventListener('click', displayscore);
 }
 
+function runQuiz (questionsAnswered) {
+    if (questionsAnswered === quizQuestions.length){
+        return quizComplete ();
+    }
+    else {
+        return displayQuestions();
+    }
 }
 
-createQuiz(quizQuestions, questionDisplay, scoreDisplay, submitButton);
+
+
 
 
