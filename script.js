@@ -109,7 +109,7 @@ $("#options").click(function(event){
 // Displaying each question //
 function displayQuestions(questionsAnswered){
     let questionAsked = $("<h3>");
-    $("#questions").append(questionAsked);
+    $(questionDisplay).append(questionAsked);
     $(questionAsked).text(count);
 
     for(var i = 0; i < count.length ; i++){
@@ -152,6 +152,11 @@ function quizComplete(){
         $(scoresToday).attr('letters', 'scoresToday');
         $(scoreDislay).append(scoresToday);
 
+        var finalScreen = (typeInitials.value , score);
+        console.log(finalScreen);
+        const theJSON = JSON.stringify(finalScreen);
+        document.getElementById("scoresToday").innerHTML = theJSON;
+        
 
     })
  
