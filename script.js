@@ -82,9 +82,10 @@ function timer() {
     }, 1000);
 }
 
-// Answering the questions //
+// Answering the questions // ** dont mix jquery and vanilla JS
+
 $("#options").click(function(event){
-    var selected = event.target;
+    var selected = $(this);
     console.log(selected);
 
     if(selected.matches('button')){
@@ -129,6 +130,7 @@ function runQuiz (questionsAnswered) {
     }
 }
 
+//Final page when
 function quizComplete(){
     var finalScore = $("<h1>").text('Bravo! You scored ' + score + 'out of 10 correctly.');
     $(questionDisplay).append(finalScore);
