@@ -41,18 +41,6 @@ const quizQuestions = [
         correctAnswer: 0
     },
 
-    { 
-        question: 'Question 6',
-        answers: ['x', 'y', 'z'],
-        correctAnswer: 1
-    },
-
-    { 
-        question: 'Question 7',
-        answers: ['x', 'y', 'z'],
-        correctAnswer: 2
-    },
-
 ];
 
 // Starters //
@@ -104,7 +92,6 @@ $("#options").click(function(event){
         if (answer === quizQuestions[questionsAnswered].correctAnswer){
             score+=2;
         }
-
     questionsAnswered++;
     $(questionDisplay).html('');
     $(answerOptions).html('');
@@ -138,21 +125,25 @@ function quizComplete(){
     $(questionDisplay).append(addInitials, typeInitials, showScore);
 
     $(showScore).click(function(){
+        debugger;
         $(questionDisplay).remove(addInitials, typeInitials, showScore);
+
         var myScores = $("<h2>");
         $(myScores).attr('letters', 'myScores').text('Scores for Today');
         $(questionDisplay).append(myScores);
 
-        var scoresToday = $("<div>");
-        $(scoresToday).attr('letters', 'scoresToday');
-        $(scoreDislay).append(scoresToday);
 
+        var scoresToday = $("<div>");
+        $(scoresToday).attr('letters', 'scoresToday').text('');
+        $(scoreDislay).append(scoresToday);
+        
+
+        var playerInitials= typeInitials.value;
         var finalScreen = (typeInitials.value , score);
         console.log(finalScreen);
         const theJSON = JSON.stringify(finalScreen);
         document.getElementById("scoresToday").innerHTML = theJSON;
         
-
     })
  
 }
