@@ -27,3 +27,13 @@ h2 {
   }
 
   
+button {
+    padding: 10px;
+    margin: 10px;
+    font-size: 20px;
+    text-align:center;
+    background-color: white;
+    border: 1px solid pink;
+    border-radius: 15px;
+
+}
