@@ -12,33 +12,33 @@ let scoreDislay = document.querySelector('#score');
 
 const quizQuestions = [
     { 
-        question: 'Question 1',
-        answers: ['x', 'y', 'z'],
-        correctAnswer: 1
-    },
-
-    { 
-        question: 'Question 2',
-        answers: ['x', 'y', 'z'],
-        correctAnswer: 0
-    },
-
-    { 
-        question: 'Question 3',
-        answers: ['x', 'y', 'z'],
-        correctAnswer: 1
-    },
-
-    { 
-        question: 'Question 4',
-        answers: ['x', 'y', 'z'],
+        question: 'Who flipped a table?',
+        answers: ['Danielle Staub', 'Porscha Williams', 'Teresa Giudice'],
         correctAnswer: 2
     },
 
     { 
-        question: 'Question 5',
-        answers: ['x', 'y', 'z'],
+        question: 'What did Lisa Rinna give Kim Richards after throwing a wine glass at her?',
+        answers: ['$5,000', 'A stuffed toy bunny', 'Bouqet of flowers'],
+        correctAnswer: 1
+    },
+
+    { 
+        question: 'Who dragged Candiace?',
+        answers: ['Monique Samuels', 'Nene Leaks', 'Jennifer Aydin'],
         correctAnswer: 0
+    },
+
+    { 
+        question: 'What did Bethenney tell Luanne at their public Miami dinner?',
+        answers: ['You are a slut', 'Life is not a cabaret', 'Go to sleep!'],
+        correctAnswer: 1
+    },
+
+    { 
+        question: 'What iconic housewife left Beverley Hills?',
+        answers: ['Kyle Richards', 'Lisa Vanderpump', 'Denise Richards'],
+        correctAnswer: 1
     },
 
 ];
@@ -137,8 +137,6 @@ function quizComplete(){
         $(scoresToday).attr('letters', 'scoresToday').text('');
         $(scoreDislay).append(scoresToday);
         
-
-        var playerInitials= typeInitials.value;
         var finalScreen = (typeInitials.value , score);
         console.log(finalScreen);
         const theJSON = JSON.stringify(finalScreen);
