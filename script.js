@@ -1,10 +1,10 @@
 // Variables from HTML //
 
-const startButton = document.querySelectorAll('#start');
-let timerDisplay = document.querySelectorAll('#timer');
-let questionDisplay = document.querySelectorAll('#questions');
-let answerOptions = document.querySelectorAll('#options');
-let scoreDislay = document.querySelectorAll('#score');
+const startButton = document.querySelector('#start');
+let timerDisplay = document.querySelector('#timer');
+let questionDisplay = document.querySelector('#questions');
+let answerOptions = document.querySelector('#options');
+let scoreDislay = document.querySelector('#score');
 
 
 
@@ -14,43 +14,43 @@ const quizQuestions = [
     { 
         question: 'Question 1',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 1
     },
 
     { 
         question: 'Question 2',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 0
     },
 
     { 
-        question: 'Question 1',
+        question: 'Question 3',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 1
     },
 
     { 
-        question: 'Question 1',
+        question: 'Question 4',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 2
     },
 
     { 
-        question: 'Question 1',
+        question: 'Question 5',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 0
     },
 
     { 
-        question: 'Question 1',
+        question: 'Question 6',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 1
     },
 
     { 
-        question: 'Question 1',
+        question: 'Question 7',
         answers: ['x', 'y', 'z'],
-        correctAnswer: 'b'
+        correctAnswer: 2
     },
 
 ];
@@ -59,7 +59,7 @@ const quizQuestions = [
 let questionsAnswered = 0;
 let timeRemaining = 60;
 let score = 0;
-let count = quizQuestions[questionsAnswered];
+
 
 // Start Button (and starting the timer) //
 $(startButton).click(function() {
@@ -71,6 +71,7 @@ $(startButton).click(function() {
 // Timer //
 function timer() {
     var timeInterval = setInterval(function(){
+        console.log(timerDisplay);
         timerDisplay.innerHTML = 'You have ' + timeRemaining + ' seconds left.';
         timeRemaining--;
 
@@ -81,68 +82,60 @@ function timer() {
         }
     }, 1000);
 }
-
-// Answering the questions // ** dont mix jquery and vanilla JS
-
-$("#options").click(function(event){
-    var selected = $(this);
-    console.log(selected);
-
-    if(selected.matches('button')){
-        if($(selected).text(count.correct)){
-            score+=2;
-        }
-        else{
-            timeRemaining -=10;
-        }
-    }
-    questionsAnswered++;
-    runQuiz(questionsAnswered);
-
-    console.log(score);
-
-    $(questionDisplay).html('');
-    $(answerOptions).html('');
-    
-});
-
-
 // Displaying each question //
-function displayQuestions(questionsAnswered){
-    let questionAsked = $("<h3>");
-    $(questionDisplay).append(questionAsked);
-    $(questionAsked).text(count);
+function displayQuestions(){
+    let header = $("<h3>");
+    $(questionDisplay).append(header);
+    $(header).text(quizQuestions[questionsAnswered].question);
+    for(var i = 0; i < quizQuestions[questionsAnswered].answers.length ; i++){
 
-    for(var i = 0; i < count.length ; i++){
         let choiceButton = $("<button>");
         $('#options').append(choiceButton);
-        $(choiceButton).text(count.l[i]);
+        $(choiceButton).text(quizQuestions[questionsAnswered].answers[i]).attr('data-value', i);
     }
 }
 
+// Answering the questions //
+
+$("#options").click(function(event){
+    
+    var buttonClicked = $(event.target);
+    var answer = buttonClicked.data('value');
+        if (answer === quizQuestions[questionsAnswered].correctAnswer){
+            score+=2;
+        }
+
+    questionsAnswered++;
+    $(questionDisplay).html('');
+    $(answerOptions).html('');
+    //console.log(score);
+    runQuiz();
+
+});
+
+
 // Run the quiz //
-function runQuiz (questionsAnswered) {
-    if (questionsAnswered === quizQuestions.length){
-        return quizComplete ();
-    }
-    else {
+function runQuiz () {
+    console.log(questionsAnswered);
+    if (questionsAnswered < quizQuestions.length){
         return displayQuestions();
     }
 }
 
 //Final page when
 function quizComplete(){
-    var finalScore = $("<h1>").text('Bravo! You scored ' + score + 'out of 10 correctly.');
+    var finalScore = $("<h1>").text('Bravo! You scored ' + score + ' out of 10 correctly.');
+    
     $(questionDisplay).append(finalScore);
 
     var addInitials = $("<h2>");
-    $(addInitials).attr('letters' , 'addIntials').text('Please enter your intials here to log your score.');
+    $(addInitials).attr('letters' , 'addInitials').text('Please enter your intials here to log your score.');
     var typeInitials = $('<input>');
     $(typeInitials).attr('type' , 'text').attr('letters' , 'initials');
-    var showScore = $('button');
+    var showScore = $("<button>");
     $(showScore).attr('type', 'submit').attr('letters', 'finalScore').text('Done');
     
-    $(questionDisplay).append(addIntials, typeInitials, showScore);
+    $(questionDisplay).append(addInitials, typeInitials, showScore);
 
     $(showScore).click(function(){
         $(questionDisplay).remove(addInitials, typeInitials, showScore);
