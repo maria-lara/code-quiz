@@ -45,7 +45,7 @@ const quizQuestions = [
 
 // Starters //
 let questionsAnswered = 0;
-let timeRemaining = 30;
+let timeRemaining = 60;
 let score = 0;
 
 
