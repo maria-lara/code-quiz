@@ -90,7 +90,10 @@ $("#options").click(function(event){
     var buttonClicked = $(event.target);
     var answer = buttonClicked.data('value');
         if (answer === quizQuestions[questionsAnswered].correctAnswer){
-            score+=2;
+            score+=1;
+            alert('Fabulous! You are correct.');
+        }else{
+            timeRemaining-=5;
         }
     questionsAnswered++;
     $(questionDisplay).html('');
@@ -111,7 +114,7 @@ function runQuiz () {
 
 //Final page when
 function quizComplete(){
-    var finalScore = $("<h1>").text('Bravo! You scored ' + score + ' out of 10 correctly.');
+    var finalScore = $("<h1>").text('Bravo! You scored ' + score + ' out of 5 correctly.');
     
     $(questionDisplay).append(finalScore);
 
@@ -125,24 +128,27 @@ function quizComplete(){
     $(questionDisplay).append(addInitials, typeInitials, showScore);
 
     $(showScore).click(function(){
-        debugger;
         $(questionDisplay).children(addInitials, typeInitials, showScore).remove();
-        
+
         var myScores = $("<h2>");
-        $(myScores).attr('letters', 'myScores').text('Scores for Today');
+        $(myScores).attr('letters', 'myScores').text('Your Scores');
         $(questionDisplay).append(myScores);
 
-
-
         var scoresToday = $("<div>");
-        $(scoresToday).attr('letters', 'scoresToday').text('');
+        $(scoresToday).attr('initials', 'scoresToday').text('');
         $(scoreDislay).append(scoresToday);
-        
-        var finalScreen = (typeInitials.value , score);
-        console.log(finalScreen);
-        const theJSON = JSON.stringify(finalScreen);
-        document.getElementById("scoresToday").innerHTML = theJSON;
-        
+
+        var finalScores = {
+            name: $(typeInitials).val(),
+            final: score,
+        }
+
+        window.localStorage.setItem('todaysScore', JSON.stringify(finalScores));
+        //debugger;
+        var item = JSON.parse(localStorage.getItem('todaysScore'));
+        var screen = $("<h4>");
+        $(screen).text(item.name + ' ' + item.final);
+        $(questionDisplay).append(screen);
     })
  
 }

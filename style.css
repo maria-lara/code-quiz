@@ -15,6 +15,12 @@ h2 {
     font-size: 20px;
 }
 
+h4 {
+    font-family:cursive;
+    color: hotpink;
+    font-size:larger;
+}
+
  #start {
     background-color: #4CAF50; /* Green */
     border: none;
