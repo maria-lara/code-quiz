@@ -45,7 +45,7 @@ const quizQuestions = [
 
 // Starters //
 let questionsAnswered = 0;
-let timeRemaining = 60;
+let timeRemaining = 30;
 let score = 0;
 
 
@@ -126,11 +126,12 @@ function quizComplete(){
 
     $(showScore).click(function(){
         debugger;
-        $(questionDisplay).remove(addInitials, typeInitials, showScore);
-
+        $(questionDisplay).children(addInitials, typeInitials, showScore).remove();
+        
         var myScores = $("<h2>");
         $(myScores).attr('letters', 'myScores').text('Scores for Today');
         $(questionDisplay).append(myScores);
+
 
 
         var scoresToday = $("<div>");
